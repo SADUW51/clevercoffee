@@ -1669,7 +1669,7 @@ void looppid() {
             if (!brewPIDDisabled) {
                 brewPIDDisabled = true;
                 bPID.SetMode(MANUAL);
-                LOGF(DEBUG, "disabled PID, waiting for %d seconds before enabling PID again", brewPIDDelay);
+                LOGF(DEBUG, "disabled PID, waiting for %.0f seconds before enabling PID again", brewPIDDelay);
             }
         }
         else {
