@@ -557,7 +557,7 @@ void handleMachineState() {
 
         case kPidNormal:
 
-            if (isBrewDetected == 1) {
+            if (brewOn == 1) {
                 machineState = kBrew;
 
                 if (standbyModeOn) {
@@ -637,7 +637,7 @@ void handleMachineState() {
                 machineState = kPidNormal;
             }
 
-            if (isBrewDetected == 1) {
+            if (brewOn == 1) {
                 machineState = kBrew;
 
                 if (standbyModeOn) {
@@ -769,7 +769,7 @@ void handleMachineState() {
 #endif
             }
 
-            if (pidON || steamON || isBrewDetected) {
+            if (pidON || steamON || brewOn) {
                 pidON = 1;
                 resetStandbyTimer();
 #if OLED_DISPLAY != 0
@@ -779,7 +779,7 @@ void handleMachineState() {
                 if (steamON) {
                     machineState = kSteam;
                 }
-                else if (isBrewDetected) {
+                else if (brewOn) {
                     machineState = kBrew;
                 }
                 else {
@@ -1579,7 +1579,7 @@ void looppid() {
             LOGF(TRACE, "Current Machinestate: %s", machinestateEnumToString(machineState));
             LOGF(TRACE, "timeBrewed %f", timeBrewed);
             LOGF(TRACE, "brewtimesoftware %f", brewtimesoftware);
-            LOGF(TRACE, "isBrewDetected %i", isBrewDetected);
+            LOGF(TRACE, "Brew detected %i", brewOn);
         }
     }
 
