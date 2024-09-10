@@ -263,7 +263,7 @@ void brewTimer() {
 
 #if (FEATURE_BREWCONTROL == 1)
 /**
- * @brief Time base brew mode
+ * @brief Time or weight based brew mode
  */
 void brew() {
     unsigned long currentMillisTemp = millis();
