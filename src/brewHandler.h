@@ -49,7 +49,7 @@ boolean brewSwitchWasOff = false;
 int brewOn = 0;                  // flag is set if brew was detected
 double totalBrewTime = 0;        // total brewtime set in software
 double timeBrewed = 0;           // total brewed time
-double lastBrewTimeMillis = 0;   // for shottimer delay after disarmed button
+double lastBrewTimeMillis = 0;   // for shottimer delay after brew is finished
 double lastBrewTime = 0;
 unsigned long startingTime = 0;  // start time of brew
 boolean brewPIDDisabled = false; // is PID disabled for delay after brew has started?
@@ -253,9 +253,10 @@ void brewTimer() {
     if (currStateBrewSwitch == LOW && currBrewState == kBrewRunning) {
         LOG(INFO, "Brew timer stopped");
         brewOn = 0;
-        currBrewState = kBrewIdle;
-        lastBrewTime = timeBrewed; // store brewtime to show in Shottimer after brew is finished
+        lastBrewTimeMillis = millis(); // time brew finished for shottimer delay
+        lastBrewTime = timeBrewed;     // store brewtime to show in Shottimer after brew is finished
         timeBrewed = 0;
+        currBrewState = kBrewIdle;
         LOGF(INFO, "Shot time: %4.1f s", lastBrewTime / 1000);
     }
 }
@@ -384,9 +385,10 @@ void brew() {
 
                 // disarmed button
                 currentMillisTemp = 0;
-                currBrewState = kBrewIdle;
-                lastBrewTime = timeBrewed; // store brewtime to show in Shottimer after brew is finished
+                lastBrewTimeMillis = millis(); // time brew finished for shottimer delay
+                lastBrewTime = timeBrewed;     // store brewtime to show in Shottimer after brew is finished
                 timeBrewed = 0;
+                currBrewState = kBrewIdle;
                 LOGF(INFO, "Shot time: %4.1f s", lastBrewTime / 1000);
             }
 

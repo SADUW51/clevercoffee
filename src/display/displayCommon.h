@@ -269,11 +269,7 @@ bool displayShottimer() {
         return true;
     }
 
-    /* if the totalBrewTime is reached automatically,
-     * nothing should be done, otherwise wrong time is displayed
-     * because the switch is pressed later than totalBrewTime
-     */
-    else if (brewSwitchState != kBrewSwitchFlush) {  //TODO: Show shottimer after brew finished fpr SHOTTIMERDISPLAYDELAY
+    else if ((millis() - lastBrewTimeMillis) < SHOTTIMERDISPLAYDELAY && brewSwitchState != kBrewSwitchFlush) { // Show shottimer after brew finished for SHOTTIMERDISPLAYDELAY
         u8g2.clearBuffer();
         u8g2.drawXBMP(-1, 11, Brew_Cup_Logo_width, Brew_Cup_Logo_height, Brew_Cup_Logo);
 
