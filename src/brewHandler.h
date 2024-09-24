@@ -11,7 +11,8 @@
 //  move brewPIDDisabled to kBrew?
 //  add flush to display templates, SHOTTIMER 0
 //  check all Scale stuff
-// add shot time log info output
+//  add shot time log info output
+//  check params website
 //  ...
 
 #pragma once
