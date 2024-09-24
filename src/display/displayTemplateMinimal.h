@@ -81,34 +81,26 @@ void printScreen() {
 // Brew time
 #if (FEATURE_BREWSWITCH == 1 && FEATURE_BREWCONTROL == 1)
 
-    // Show brew time; after brew finished show lastBrewTime during SHOTTIMERDISPLAYDELAY
-    u8g2.setCursor(34, 44);
-    u8g2.print(langstring_brew);
-    u8g2.print(timeBrewed / 1000, 0);
-    u8g2.print("/");
-    u8g2.print(totalBrewTime / 1000, 1);
-
-    if ((millis() - lastBrewTimeMillis) < SHOTTIMERDISPLAYDELAY) {
+    // Shown brew time while machine is brewing and after the brewing during SHOTTIMERDISPLAYDELAY
+    if (machineState == kBrew || (millis() - lastBrewTimeMillis) < SHOTTIMERDISPLAYDELAY) {
         u8g2.setCursor(34, 44);
         u8g2.print(langstring_brew);
-        u8g2.print(lastBrewTime / 1000, 0);
+        u8g2.print(timeBrewed / 1000, 0);
         u8g2.print("/");
-        u8g2.print(totalBrewTime / 1000, 1);
+        u8g2.print(totalBrewTime / 1000, 0);
     }
+
 #endif
 
 #if (FEATURE_BREWSWITCH == 1 && FEATURE_BREWCONTROL == 0)
 
     // Show brew time; after brew finished show lastBrewTime during SHOTTIMERDISPLAYDELAY
-    u8g2.setCursor(34, 44);
-    u8g2.print(langstring_brew);
-    u8g2.print(timeBrewed / 1000, 0);
-
-    if ((millis() - lastBrewTimeMillis) < SHOTTIMERDISPLAYDELAY) {
+    if (machineState == kBrew || (millis() - lastBrewTimeMillis) < SHOTTIMERDISPLAYDELAY) {
         u8g2.setCursor(34, 44);
         u8g2.print(langstring_brew);
-        u8g2.print(lastBrewTime / 1000, 0);
+        u8g2.print(timeBrewed / 1000, 0);
     }
+
 #endif
 
     // Show heater output in %
